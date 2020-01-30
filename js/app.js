@@ -172,9 +172,9 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // ============================================================================================ //
 
     const $footer = $('<footer>').appendTo('body')
-    
     const $footerText = $('<p>')
-    $footerText.html('<a href="https://wins.dev" target="_blank">winslow</a> made this app with determination and a mac. keep calm and clear or mostly sunny.')
+
+    $footerText.html('<a href="https://wins.dev" target="_blank">winslow</a> made this app with determination and a mac. <span class="breaker">keep calm and clear or mostly sunny.</span>')
     $footerText.appendTo($footer)
 
     // ============================================================================================ //
@@ -195,13 +195,13 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     const $iconStorm = $('<img>').attr({ 'src': 'images/weather/thunderstorm.png', 'id': 'sky-conditions' })
     const $iconTornado = $('<img>').attr({ 'src': 'images/weather/tornado.png', 'id': 'sky-conditions' })
     const $iconCrystalBall = $('<img>').attr({ 'src': 'images/or-not/crystal-ball.png', 'id': 'sky-conditions' })
-    
+
     // ==== OTHER ICONS
     const $iconCoffee = $('<img>').attr({ 'src': 'images/or-not/coffee.png', 'id': 'sky-conditions' })
     const $iconDrink = $('<img>').attr({ 'src': 'images/or-not/drink.png', 'id': 'sky-conditions' })
     const $iconShorts = $('<img>').attr({ 'src': 'images/or-not/shorts.png', 'id': 'sky-conditions' })
     const $iconSwimwear = $('<img>').attr({ 'src': 'images/or-not/swimwear.png', 'id': 'sky-conditions' })
-    
+
     let atlanta = 30303;
 
     $.ajax({

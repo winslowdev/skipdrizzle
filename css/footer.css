@@ -3,44 +3,42 @@
 }
 
 footer {
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    padding: 20px 0;
-    font-family: "Helvetica Neue", sans-serif;
-    line-height: 2rem;
-    text-align: center;
-    background-color: #000000;
-    color: #eeeeee;
-    border-top: 7px solid #0044ff;
-}
-
-footer {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: center;
-    padding: 20px 0;
-    margin-top: 20px;
+    align-items: center;
+    font-size: 0.7rem;
+    margin-top: 15px;
+    padding: 10px 0;
+    background-color: #000000;
+    border-top: 5px solid #0044ff;
 }
 
 footer p {
+    font-family: -apple-system, BlinkMacSystemFont, 'Basier Square Regular', sans-serif;
     font-size: 0.7rem;
-    font-weight: 300;
-    line-height: 135%;
+    font-weight: 400;
+    line-height: 175%;
     text-align: center;
-}
-
-
-
-footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.7rem;
+    color: var(--white);
 }
 
 a {
     color: var(--white);
+}
+
+.breaker {
+    display: block;
+}
+
+@media screen and (min-width: 500px) {
+    .breaker {
+        display: inline;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    footer p {
+        font-size: 0.9rem;
+    }
 }
