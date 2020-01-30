@@ -171,9 +171,11 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // ============================================================================================ //
     // ============================================================================================ //
 
-    const $footer = $('<footer>')
-    $footer.html('this app was made with determination and a mac. <span class="break">keep calm and clear or mostly sunny.')
-    $footer.appendTo('body')
+    const $footer = $('<footer>').appendTo('body')
+    
+    const $footerText = $('<p>')
+    $footerText.html('<a href="https://wins.dev" target="_blank">winslow</a> made this app with determination and a mac. keep calm and clear or mostly sunny.')
+    $footerText.appendTo($footer)
 
     // ============================================================================================ //
     // ============================================================================================ //
