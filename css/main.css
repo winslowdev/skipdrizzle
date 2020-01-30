@@ -1,0 +1,212 @@
+/* * {
+    border: 1px solid #0c0c0c;
+} */
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: 'DM Serif Text', serif;
+    background-color: #fafafa;
+    color: #000000;
+    text-transform: lowercase;
+}
+
+/* ============================================= //
+// ============================================= //
+// TEXT
+// ============================================= //
+// ============================================= */
+
+h1 {
+    width: 90%;
+    margin: 15px auto;
+    font-size: 3rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 3.5rem;
+    line-height: 4.5rem;
+}
+
+#atlanta {
+    text-align: center;
+    margin: 0 5%;
+}
+
+.break {
+    display: block;
+}
+
+/* ============================================= //
+// ============================================= //
+// BODY PARTS
+// ============================================= //
+// ============================================= */
+
+header {
+    border-bottom: 7px solid #222222;
+}
+
+#location-container {
+    width: 95%;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+main {
+    height: auto;
+    padding: 50px 0;
+    background-color: #e9e9e9;
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    padding: 20px 0;
+    font-family: "Helvetica Neue", sans-serif;
+    line-height: 2rem;
+    text-align: center;
+    background-color: #000000;
+    color: #eeeeee;
+    border-top: 7px solid #0044ff;
+}
+
+/* ============================================= //
+// ============================================= //
+// INPUT & BUTTON
+// ============================================= //
+// ============================================= */
+
+input {
+    width: 400px;
+    height: 50px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 1.5rem;
+    border: none;
+    border-bottom: 3px solid #000000b9;
+    background-color: #19191900;
+}
+
+::placeholder {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 1.5rem;
+}
+
+/* Code for disappearing placeholder
+retrieved fromm Stanhub:
+https://stanhub.com/how-to-remove-the-placeholder-on-focus-css-only/ */
+input:focus::-webkit-input-placeholder { color: transparent; }
+input:focus:-moz-placeholder { color: transparent; }
+/* End code retrieval */
+
+button {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 125px;
+    height: 50px;
+    margin: 20px 0;
+    outline: 0;
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 1rem;
+    line-height: 2rem;
+    border: 3px solid #000000;
+    background-color: #00ff99;   
+}
+
+button:hover {
+    background-color: #ffba00;
+    color: #000000;
+}
+
+#button-cities-icon {
+    width: 35px;
+    height: 35px;
+    filter: invert(100%);
+    transform: rotate(180deg);
+}
+
+/* ============================================= //
+// ============================================= //
+// ARROWS
+// ============================================= //
+// ============================================= */
+
+.nav-arrow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.nav-arrow p {
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 1.75rem;
+}
+
+#left-arrow {
+    width: 75px;
+    height: 75px;
+    filter: invert(100%)
+}
+
+#nav-arrow-next {
+    width: 75px;
+    height: 75px;
+    filter: invert(100%);
+    transform: rotate(180deg)
+}
+
+/* ============================================= //
+// ============================================= //
+// CAROUSEL
+// ============================================= //
+// ============================================= */
+
+/* ========== WEATHER REPORTS */
+#current-reports {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.forecast {
+    margin: 0 5%;
+    text-align: center;
+}
+
+
+    #sky-conditions {
+        order: 1;
+        /* width: 20%; */
+        width: 300px;
+        height: 300px;
+    }
+
+    .report-text {
+        order: 2;
+    }
+
+    
+
+    /* selecting all images in the carousel class */
+    #current-reports div {
+    display: none;
+  }
+  
+  /* shows only the first type whatever you select */
+  #current-reports div:first-of-type {
+    display: inline-block;
+  }
