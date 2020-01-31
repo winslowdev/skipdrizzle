@@ -70,10 +70,23 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // ========== DATA RENDER
     // ========== DATA RENDER
 
-    const $forecastCards = $('<div>').addClass('atlanta').attr('id', 'forecast-cards').hide().appendTo($main)
-    const $card1 = $('<div>').addClass('card-report').appendTo($forecastCards)
-    const $card2 = $('<div>').addClass('card-report').appendTo($forecastCards)
-    const $card3 = $('<div>').addClass('card-report').appendTo($forecastCards)
+    const $forecastCards = $('<div>').attr('id', 'forecast-cards').hide().appendTo($main)
+
+    const $card1 = $('<div>').addClass('card').appendTo($forecastCards)
+    const $card1Title = $('<h2>').appendTo($card1)
+    const $card1Weather = $('<div>').addClass('duo').appendTo($card1)
+    const $card1Message = $('<h4>').appendTo($card1Weather)
+
+    const $card2 = $('<div>').addClass('card').appendTo($forecastCards)
+    const $card2Title = $('<h2>').appendTo($card2)
+    const $card2Weather = $('<div>').addClass('duo').appendTo($card2)
+    const $card2Message = $('<h4>').appendTo($card2Weather)
+
+    const $card3 = $('<div>').addClass('card').appendTo($forecastCards)
+    const $card3Title = $('<h2>').text('#overview').appendTo($card3)
+    const $card3Weather = $('<div>').addClass('duo').appendTo($card3)
+    const $card3Message = $('<h4>').appendTo($card3Weather)
+
 
     // ========== RIGHT ARROW
     // ========== RIGHT ARROW
@@ -143,13 +156,13 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     const $weatherCloudy = $('<img>').attr('src', 'images/weather/cloudy-part.png').addClass('weather-icon')
     const $weatherDrizzleMist = $('<img>').attr('src', 'images/weather/drizzle-mist.png').addClass('weather-icon')
     const $weatherDustSandAsh = $('<img>').attr('src', 'images/weather/dust-sand-ash.png').addClass('weather-icon')
-    const $weatherFog = $('<img>').attr('src', 'images/weather/fog-haze.png').addClass('weather-icon')
+    const $weatherHaze = $('<img>').attr('src', 'images/weather/fog-haze.png').addClass('weather-icon')
     const $weatherRain = $('<img>').attr('src', 'images/weather/rain.png').addClass('weather-icon')
     const $weatherSmoke = $('<img>').attr('src', 'images/weather/smoky.png').addClass('weather-icon')
     const $weatherSnow = $('<img>').attr('src', 'images/weather/snow.png').addClass('weather-icon')
+    const $weatherSquall = $('<img>').attr('src', 'images/weather/squall.png').addClass('weather-icon')
     const $weatherStorm = $('<img>').attr('src', 'images/weather/thunderstorm.png').addClass('weather-icon')
     const $weatherTornado = $('<img>').attr('src', 'images/weather/tornado.png').addClass('weather-icon')
-
 
     // ========== NOT ICONS
     // ========== NOT ICONS
@@ -161,61 +174,180 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     const $notSwimwear = $('<img>').attr('src', 'images/or-not/swimwear.png')
 
 
-    // ========== HOME ZIP DEFINITION
-    // ========== HOME ZIP DEFINITION
+    // ========== WEATHER FUNCTIONS
+    // ========== WEATHER FUNCTIONS
 
-    let home = 30363;
+    const returnStatus = (conditions) => {
+        switch (conditions) {
+            case "Ash":
+                return 'ashy because volcano';
+                break;
+            case "Clear":
+                return 'clear';
+                break;
+            case "Clouds":
+                return 'cloudy';
+                break;
+            case "Drizzle":
+                return 'drizzling';
+                break;
+            case "Dust":
+                return 'dusty';
+                break;
+            case "Haze":
+                return 'hazy';
+                break;
+            case "Mist":
+                return 'misty';
+                break;
+            case "Rain":
+                return 'raining';
+                break;
+            case "Sand":
+                return 'sandy';
+                break;
+            case "Smoke":
+                return 'smoky';
+                break;
+            case "Snow":
+                return 'snowing';
+                break;
+            case "Squall":
+                return 'super frickin\' windy';
+                break;
+            case "Thunderstorm":
+                return 'thunderstorming';
+                break;
+            case "Tornado":
+                return 'there might be a tornado';
+                break;
+
+            default:
+                return 'who knows';
+        }
+    }
+
+    const findWeatherIcon = (conditions) => {
+        switch (conditions) {
+            case "Ash" || "Dust" || "Sand":
+                return $weatherDustSandAsh;
+                break;
+            case "Clear":
+                return $weatherClear;
+                break;
+            case "Clouds":
+                return $weatherCloudy;
+                break;
+            case "Drizzle" || "Mist":
+                return $weatherDrizzleMist;
+                break;
+            case "Haze":
+                return $weatherHaze;
+                break;
+            case "Rain":
+                return $weatherRain;
+                break;
+            case "Smoke":
+                return $weatherSmoke;
+                break;
+            case "Snow":
+                return $weatherSnow;
+                break;
+            case "Squall":
+                return $weatherSquall;
+                break;
+            case "Thunderstorm":
+                return $weatherStorm;
+                break;
+            case "Tornado":
+                return $weatherTornado;
+                break;
+            default:
+        }
+    }
 
 
-    // ========== AJAX CALL
-    // ========== AJAX CALL
+    // ========== OVERVIEW FUNCTIONS
+    // ========== OVERVIEW FUNCTIONS
+
+    let temperatureCode;
+    let conditionsCode;
+
+    const determineIfMatch = (i, j) => {
+        if (i === j) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    // FINAL LINE(S)
+    const endSummary = (temperature, conditions) => {
+        if ((temperature === "cold" || "very cold") && (conditions === "rainy")) {
+            return "Cold and rainy? That sucks."
+        } else if ((temperature === "hot" || "warm") && (conditions === "clear")) {
+            return `You should go jump in a pool or something. It's pretty ${temperature}.`
+        } else if ((temperature === "cold" || "very cold") && (conditions === "cloudy" || "clear")) {
+            return `Hey, at least it's not raining... that I know of.`
+        }
+    }
+
+    // MIDDLE LINES : CONDITIONS
+    const continueSummary = (city1, cond1, city2, cond2) => {
+        let match = determineIfMatch(cond1, cond2);
+
+        if ((cond1 || cond2) === "raining") {
+            conditionsCode = "rainy"
+            return "take an umbrella since it's raining in " + (match === true ? `both ${city1} and ${city2}` : (cond1 === "raining" ? `${city1}.` : `${city2}.`))
+        } else if ((cond1 || cond2) === "clear") {
+            conditionsCode = "clear"
+            return "it's clear skies in " + (match === true ? ` both ${city1} and ${city2}` : (cond1 === "clear" ? `${city1}, but ${cond2} in ${city2}.` : `${city2}, but ${cond1} in ${city1}.`))
+        } else if ((cond1 || cond2) === "cloudy") {
+            conditionsCode = "cloudy"
+            return "you're not in the clear. Because you're in the 'cloudy'. Don't hate the jokes."
+        }
+    }
+
+    // FIRST LINES : TEMPERATURE
+    const startSummary = (city1, temp1, city2, temp2) => {
+        if ((temp1 && temp2) > 88) {
+            temperatureCode = "hot"
+            return "'d might as well not wear any clothes. It\'s too hot for that, but at least "
+        } else if (temp1 && temp2 > 60) {
+            temperatureCode = "warm"
+            return " should just put on a shirt and jeans. The temperature is pretty nice, but it's warmer in " + (temp1 > temp2 ? `${city1} than it is in ${city2}. Also, ` : `${city2} than it is in ${city1}. Also, `)
+        } else if (temp1 && temp2 > 45) {
+            temperatureCode = "cool"
+            return " might wanna take a jacket since it's getting pretty cool. You'll probably wanna skip the shorts and trade those flip flops for tennis shoes unless you want those little piggies to cry 'wee wee' all the way home. By the way, "
+        } else if (temp1 && temp2 > 25) {
+            temperatureCode = "cold"
+            return " gotta stay warm, so maybe wear a coat and comfortable jeans. And trade those flip flops for tennis shoes unless you want those little piggies to cry 'wee wee' all the way home. By the way, "
+        } else if ((temp1 && temp2) < 10) {
+            temperatureCode = "cold"
+            return "'ll probably wanna wear a heavy coat and pants. Thick pants. Thick. And just so you know, it's colder in " + (temp1 < temp2 ? `${city1} than it is in ${city2}. Also, ` : `${city2} than it is in ${city1}. Also, `)
+        }
+    }
+
+    const generateSummary = (city1, city1Conditions, city1Temp, city2, city2Conditions, city2Temp) => {
+        return "You" + startSummary(city1, city1Temp, city2, city2Temp) + " " + continueSummary(city1, city1Conditions, city2, city2Conditions) + " " + endSummary(temperatureCode, conditionsCode)
+    }
+
+
+    // ========== AJAX CALL FOR DATA RENDERING
+    // ========== AJAX CALL FOR DATA RENDERING
 
     $.ajax({
-        url: "https://api.openweathermap.org/data/2.5/weather?zip=" + home + ",us&units=imperial&appid=052b6765bf73ea440e9f314c5808f645"
+        url: "https://api.openweathermap.org/data/2.5/weather?zip=" + 30363 + ",us&units=imperial&appid=052b6765bf73ea440e9f314c5808f645"
     }).then(
         (data) => {
-            
-            
-            
-            
-            ///// ATLANTA /////
-            const homeConditions = data.weather[0].main; // cloud conditions
-            const homeTemperature = Math.round(data.main.temp); // current temperature
-            let homeWeather;
 
-            if (homeConditions === "Clouds") {
-                homeWeather = "partly cloudy";
-            } else if (homeConditions === "Clear") {
-                homeWeather = "clear"
-            } else if (homeConditions === "Thunderstorm") {
-                homeWeather = "storming"
-            } else if (homeConditions === "Rain") {
-                homeWeather = "raining"
-            } else if (homeConditions === "Drizzle") {
-                homeWeather = "drizzling"
-            } else if (homeConditions === "Mist") {
-                homeWeather = "misty"
-            } else if (homeConditions === "Haze") {
-                homeWeather = "hazy"
-            } else if (homeConditions === "Snow") {
-                homeWeather = "snowing"
-            } else if (homeConditions === "Smoke") {
-                homeWeather = "smoky"
-            } else if (homeConditions === "Dust") {
-                homeWeather = "dusty"
-            } else if (homeConditions === "Sand") {
-                homeWeather = "sand"
-            } else if (homeConditions === "Ash") {
-                homeWeather = "there's volcanic ash"
-            } else if (homeConditions === "Squall") {
-                homeWeather = "super frickin' windy"
-            } else if (homeConditions === "Tornado") {
-                homeWeather = "there's a tornado watch"
-            } else {
-                homeWeather = "who knows"
-            }
+            // ========== ATLANTA
+            // ========== ATLANTA
 
-            $greeting.text('Hello from Atlanta, where it\'s ' + homeTemperature + '° & ' + homeWeather + '.')
+            let homeTemp = Math.round(data.main.temp);
+            let homeConditions = returnStatus(data.weather[0].main)
+
+            $greeting.text('Hello from Atlanta, where it\'s ' + homeTemp + '° & ' + homeConditions + '.')
 
         }, () => {
             console.log('coming back foggy. try again')
@@ -230,171 +362,69 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
         $arrowBack.show()
         $forecastCards.show();
 
-        let cityStart = $('input[name="input-1"]').val();
-        let cityEnd = $('input[name="input-2"]').val();
+        let locationInput1 = $('input[name="input-1"]').val();
+        let locationInput2 = $('input[name="input-2"]').val();
+
+        // let locationInput1 = 'Seattle'
+        // let locationInput2 = 'Atlanta'
+
+        // ========== AJAX CALL
+        // ========== AJAX CALL
 
         $.ajax({
-            url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityStart + ",us&units=imperial&appid=052b6765bf73ea440e9f314c5808f645"
+            url: "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput1 + ",us&units=imperial&appid=052b6765bf73ea440e9f314c5808f645"
         }).then(
             (data) => {
-                ///// CITY 1 /////
-                const skyConditions1 = data.weather[0].main; // cloud conditions
-                const currentTemp1 = Math.round(data.main.temp); // current temperature
-                const city1 = data.name; // current temperature
-                let weathering1;
-                console.log(skyConditions1)
 
-                if (skyConditions1 === "Clouds") {
-                    weathering1 = "partly cloudy";
-                    $notCloudy.appendTo($card1)
-                } else if (skyConditions1 === "Clear") {
-                    weathering1 = "clear";
-                    $weatherClear.appendTo($card1)
-                } else if (skyConditions1 === "Thunderstorm") {
-                    weathering1 = "storming"
-                    $weatherStorm.appendTo($card1)
-                } else if (skyConditions1 === "Rain") {
-                    weathering1 = "raining"
-                    $weatherRain.appendTo($card1)
-                } else if (skyConditions1 === "Drizzle") {
-                    weathering1 = "drizzling"
-                    $weatherDrizzleMist.appendTo($card1)
-                } else if (skyConditions1 === "Mist") {
-                    weathering1 = "misty"
-                    $weatherDrizzleMist.appendTo($card1)
-                } else if (skyConditions1 === "Haze") {
-                    weathering1 = "hazy"
-                    $weatherFog.appendTo($card1)
-                } else if (skyConditions1 === "Snow") {
-                    weathering2 = "snowing"
-                    $weatherSnow.appendTo(card1)
-                } else if (skyConditions1 === "Smoke") {
-                    weathering1 = "smoky"
-                    $weatherSmoke.appendTo($card1)
-                } else if (skyConditions1 === "Dust") {
-                    weathering1 = "dusty"
-                    $weatherDustSandAsh.appendTo($card1)
-                } else if (skyConditions1 === "Sand") {
-                    weathering1 = "sandy"
-                    $weatherDustSandAsh.appendTo($card1)
-                } else if (skyConditions1 === "Ash") {
-                    weathering1 = "there's volcanic ash"
-                    $weatherFog.appendTo($card1)
-                } else if (skyConditions1 === "Squall") {
-                    weathering1 = "super frickin' windy"
-                    $weatherFog.appendTo($card1)
-                } else if (skyConditions1 === "Tornado") {
-                    weathering1 = "there's a tornado watch"
-                    $weatherTornado.appendTo($card1)
-                } else {
-                    const $noData = $('<h2>').text("We're channeling Miss Cleo and everything's coming back foggy. Try again later.")
-                    $noData.appendTo($card1)
-                    $notCrystalBall.appendTo($card1)
-                }
+                // ========== INPUT 1
+                // ========== INPUT 1
+
+                let city1 = data.name;
+                let city1Temp = Math.round(data.main.temp);
+                let city1Conditions = returnStatus(data.weather[0].main);
+
+                $card1Title.text(city1)
+                $card1Message.text(city1Temp + '° & ' + city1Conditions)
+                findWeatherIcon(data.weather[0].main).prependTo($card1Message)
+
+
+                // ========== AJAX CALL
+                // ========== AJAX CALL
 
                 $.ajax({
-                    url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityEnd + ",us&units=imperial&appid=052b6765bf73ea440e9f314c5808f645"
+                    url: "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput2 + ",us&units=imperial&appid=052b6765bf73ea440e9f314c5808f645"
                 }).then(
                     (data) => {
 
-                        ///// CITY 2 /////
-                        const skyConditions2 = data.weather[0].main; // cloud conditions
-                        const currentTemp2 = Math.round(data.main.temp); // current temperature
-                        const city2 = data.name; // current temperature
-                        let weathering2;
+                        // ========== INPUT 2
+                        // ========== INPUT 2
 
-                        if (skyConditions2 === "Clouds") {
-                            weathering2 = "partly cloudy";
-                            $weatherCloudy.appendTo($card2)
-                        } else if (skyConditions2 === "Clear") {
-                            weathering2 = "clear";
-                            $weatherClear.appendTo($card2)
-                        } else if (skyConditions2 === "Thunderstorm") {
-                            weathering2 = "storming"
-                            $weatherStorm.appendTo($card2)
-                        } else if (skyConditions2 === "Rain") {
-                            weathering2 = "raining"
-                            $weatherRain.appendTo($card2)
-                        } else if (skyConditions2 === "Drizzle") {
-                            weathering2 = "drizzling"
-                            $weatherDrizzleMist.appendTo($card2)
-                        } else if (skyConditions2 === "Mist") {
-                            weathering2 = "misty"
-                            $weatherDrizzleMist.appendTo($card2)
-                        } else if (skyConditions2 === "Haze") {
-                            weathering2 = "hazy"
-                            $weatherFog.appendTo($card2)
-                        } else if (skyConditions2 === "Snow") {
-                            weathering2 = "snowing"
-                            $weatherSnow.appendTo(card2)
-                        } else if (skyConditions2 === "Smoke") {
-                            weathering1 = "smoky"
-                            $weatherSmoke.appendTo($card2)
-                        } else if (skyConditions2 === "Dust") {
-                            weathering1 = "dusty"
-                            $weatherDustSandAsh.appendTo($card2)
-                        } else if (skyConditions2 === "Sand") {
-                            weathering1 = "sandy"
-                            $weatherDustSandAsh.appendTo($card2)
-                        } else if (skyConditions2 === "Ash") {
-                            weathering1 = "there's volcanic ash"
-                            $weatherFog.appendTo($card2)
-                        } else if (skyConditions2 === "Squall") {
-                            weathering1 = "super frickin' windy"
-                            $weatherFog.appendTo($card2)
-                        } else if (skyConditions2 === "Tornado") {
-                            weathering1 = "there's a tornado watch"
-                            $weatherTornado.appendTo($card2)
-                        } else {
-                            const $noData = $('<h2>').text("We're channeling Miss Cleo and everything's coming back foggy. Try again later.")
-                            $noData.appendTo($card2)
-                            $notCrystalBall.appendTo($card2)
-                        }
+                        let city2 = data.name;
+                        let city2Temp = Math.round(data.main.temp);
+                        let city2Conditions = returnStatus(data.weather[0].main);
 
-                        // CARD 1 LAYOUT
-                        let $card1Location = $('<h2>').text(city1).appendTo($card1)
-                        let $card1Information = $('<p>').addClass('report-text').text(currentTemp1 + '° & ' + weathering1).appendTo($card1)
-                        $arrowNextLabel.text('next to ' + city2)
+                        $card2Title.text(city2)
+                        $card2Message.text(city2Temp + '° & ' + city2Conditions)
+                        findWeatherIcon(data.weather[0].main).prependTo($card2Message)
 
-                        // CARD 2 LAYOUT
-                        let $card2Location = $('<h2>').text(city2).appendTo($card2)
-                        let $card2Information = $('<p>').addClass('report-text').text(currentTemp2 + '° & ' + weathering2).appendTo($card2)
-                        $arrowNextLabel.text('next to overview')
+                        $card3Message.text(generateSummary(city1, city1Conditions, city1Temp, city2, city2Conditions, city2Temp))
 
-
-
-
-
-                        let $reportText2 = $('<h2>').addClass('report-text').html("#rn it's " + currentTemp2 + "°F and " + weathering2 + " in " + city2 + ". <p>next up: " + "recap.")
-                        $reportText2.appendTo($card2)
 
                         ///// RECAP INFORMATION /////
-
-                        if ((currentTemp1 & currentTemp2) > 90) {
-                            let $reportText3 = $('<h2>').addClass('report-text').text("you should go jump in a pool or something. it's pretty hot");
-                            $reportText3.appendTo($card3).css('font-size': '4rem', 'line-height': '4rem' })
-                        } else if ((skyConditions1 || skyconditions2) === "Rain") {
-                            let $reportText3 = $('<h2>').addClass('report-text').text("you definitely want to make sure you take an umbrella with you");
-                            $reportText3.appendTo($card3).css('font-size': '4rem', 'line-height': '4rem' })
-                        } else if ((currentTemp1 || currentTemp2) > 60) {
-                            let $reportText3 = $('<h2>').addClass('report-text').text("it's pretty nice outside. you should go enjoy yourself.");
-                            $reportText3.appendTo($card3).css('font-size': '4rem', 'line-height': '4rem' })
-                        } else if ((currentTemp1 || currentTemp2) < 60) {
-                            let $reportText3 = $('<h2>').addClass('report-text').text("it's kinda cold out there. take a jacket or coat!");
-                            $reportText3.appendTo($card3).css('font-size': '4rem', 'line-height': '4rem' })
-                        } else {
-                            let $reportText3 = $('<h2>').addClass('report-text').text("i'll let you decide what to do!");
-                            $reportText3.appendTo($card3).css('font-size': '4rem', 'line-height': '4rem' })
-                        }
+                        // else if ((city1Temp || city2Temp) > 60) {
+                        //     let $reportText3 = $('<h2>').addClass('report-text').text("it's pretty nice outside. you should go enjoy yourself.");
+                        //     $reportText3.appendTo($card3).css({ 'font-size': '4rem', 'line-height': '4rem' })
+                        // } else if ((city1Temp || city2Temp) < 60) {
+                        //     let $reportText3 = $('<h2>').addClass('report-text').text("it's kinda cold out there. take a jacket or coat!");
+                        //     $reportText3.appendTo($card3).css({ 'font-size': '4rem', 'line-height': '4rem' })
+                        // } else {
+                        //     let $reportText3 = $('<h2>').addClass('report-text').text("i'll let you decide what to do!");
+                        //     $reportText3.appendTo($card3).css({ 'font-size': '4rem', 'line-height': '4rem' })
+                        // }
 
                         $arrowBackLabel.text('back to #overview')
-                        $arrowNextLabel.text('next to ' + city2)
+                        $arrowNextLabel.text('next')
 
-
-
-
-                        console.log(city1 + ": " + skyConditions1 + ", " + currentTemp1)
-                        console.log(city2 + ": " + skyConditions2 + ", " + currentTemp2)
                     }, () => {
                         console.log('coming back foggy. try again')
                     })
