@@ -5,6 +5,8 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
 
     const $container = $('<div>').addClass('container')
     const $content = $('<div>').addClass('content')
+    let arrowLabelCity1;
+    let arrowLabelCity2;
 
     // ============================================================================================ //
     // ============================================================================================ //
@@ -64,13 +66,13 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
 
     const $arrowBack = $('<div>').addClass('nav').hide().appendTo($main)
     const $arrowBackIcon = $('<img>').attr('src', 'images/arrow-white.png').addClass('arrow').appendTo($arrowBack)
-    const $arrowBackLabel = $('<p>').appendTo($arrowBack)
+    const $arrowBackLabel = $('<p>').text(arrowLabelCity1).appendTo($arrowBack)
 
 
     // ========== DATA RENDER
     // ========== DATA RENDER
 
-    const $forecastCards = $('<div>').attr('id', 'forecast-cards').hide().appendTo($main)
+    const $forecastCards = $('<div>').attr('id', 'cards').hide().appendTo($main)
 
     const $card1 = $('<div>').addClass('card').appendTo($forecastCards)
     const $card1Title = $('<h2>').appendTo($card1)
@@ -83,7 +85,7 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     const $card2Message = $('<h4>').appendTo($card2Weather)
 
     const $card3 = $('<div>').addClass('card').appendTo($forecastCards)
-    const $card3Title = $('<h2>').text('#overview').appendTo($card3)
+    const $card3Title = $('<h2>').text('Summary').appendTo($card3)
     const $card3Weather = $('<div>').addClass('duo').appendTo($card3)
     const $card3Message = $('<h4>').appendTo($card3Weather)
 
@@ -92,7 +94,7 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // ========== RIGHT ARROW
 
     const $arrowNext = $('<div>').addClass('nav').hide().appendTo($main)
-    const $arrowNextLabel = $('<p>').appendTo($arrowNext)
+    const $arrowNextLabel = $('<p>').text(arrowLabelCity2).appendTo($arrowNext)
     const $arrowNextIcon = $('<img>').attr('src', 'images/arrow-white.png').addClass('arrow').css('transform', 'rotate(180deg)').appendTo($arrowNext)
 
     // ========== DATA INCLUSION
@@ -130,7 +132,7 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // ====================================================================== FORECAST CAROUSEL
 
 
-    const $dividerBottom = $('<div>').addClass('divider').appendTo($main)
+    // const $dividerBottom = $('<div>').addClass('divider').appendTo($main)
 
 
     // ============================================================================================ //
@@ -139,8 +141,8 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // ============================================================================================ //
     // ============================================================================================ //
 
-    const $footer = $('<footer>').appendTo('body')
-    const $footerText = $('<p>').html('<a href="https://wins.dev" target="_blank">winslow</a> made this app with determination and a mac. <span class="breaker">keep calm and clear or mostly sunny.</span>').appendTo($footer)
+    // const $footer = $('<footer>').appendTo('body')
+    // const $footerText = $('<p>').html('<a href="https://wins.dev" target="_blank">winslow</a> designed and coded this app with determination and a mac. <span class="breaker">keep calm and clear or mostly sunny.</span>').appendTo($footer)
 
 
     // ============================================================================================ //
@@ -216,7 +218,7 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
                 return 'super frickin\' windy';
                 break;
             case "Thunderstorm":
-                return 'thunderstorming';
+                return 'storming';
                 break;
             case "Tornado":
                 return 'there might be a tornado';
@@ -298,10 +300,10 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
 
         if ((cond1 || cond2) === "raining") {
             conditionsCode = "rainy"
-            return "take an umbrella since it's raining in " + (match === true ? `both ${city1} and ${city2}` : (cond1 === "raining" ? `${city1}.` : `${city2}.`))
+            return "take an umbrella since it's raining in " + (match === true ? `both ${city1} and ${city2}.` : (cond1 === "raining" ? `${city1}.` : `${city2}.`))
         } else if ((cond1 || cond2) === "clear") {
             conditionsCode = "clear"
-            return "it's clear skies in " + (match === true ? ` both ${city1} and ${city2}` : (cond1 === "clear" ? `${city1}, but ${cond2} in ${city2}.` : `${city2}, but ${cond1} in ${city1}.`))
+            return "it's clear skies in " + (match === true ? ` both ${city1} and ${city2}.` : (cond1 === "clear" ? `${city1}, but ${cond2} in ${city2}.` : `${city2}, but ${cond1} in ${city1}.`))
         } else if ((cond1 || cond2) === "cloudy") {
             conditionsCode = "cloudy"
             return "you're not in the clear. Because you're in the 'cloudy'. Don't hate the jokes."
@@ -362,11 +364,11 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
         $arrowBack.show()
         $forecastCards.show();
 
-        let locationInput1 = $('input[name="input-1"]').val();
-        let locationInput2 = $('input[name="input-2"]').val();
+        // let locationInput1 = $('input[name="input-1"]').val();
+        // let locationInput2 = $('input[name="input-2"]').val();
 
-        // let locationInput1 = 'Seattle'
-        // let locationInput2 = 'Atlanta'
+        let locationInput1 = 'Truth or Consequences'
+        let locationInput2 = 'Hawaiian Paradise Park'
 
         // ========== AJAX CALL
         // ========== AJAX CALL
@@ -384,8 +386,8 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
                 let city1Conditions = returnStatus(data.weather[0].main);
 
                 $card1Title.text(city1)
-                $card1Message.text(city1Temp + '° & ' + city1Conditions)
-                findWeatherIcon(data.weather[0].main).prependTo($card1Message)
+                $card1Message.html(city1Temp + '° <span class="highlight">&</span><br />' + city1Conditions)
+                findWeatherIcon(data.weather[0].main).prependTo($card1Weather)
 
 
                 // ========== AJAX CALL
@@ -404,25 +406,12 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
                         let city2Conditions = returnStatus(data.weather[0].main);
 
                         $card2Title.text(city2)
-                        $card2Message.text(city2Temp + '° & ' + city2Conditions)
-                        findWeatherIcon(data.weather[0].main).prependTo($card2Message)
+                        $card2Message.html(city2Temp + '° <span class="highlight">&</span><br />' + city2Conditions)
+                        findWeatherIcon(data.weather[0].main).prependTo($card2Weather)
 
                         $card3Message.text(generateSummary(city1, city1Conditions, city1Temp, city2, city2Conditions, city2Temp))
 
-
-                        ///// RECAP INFORMATION /////
-                        // else if ((city1Temp || city2Temp) > 60) {
-                        //     let $reportText3 = $('<h2>').addClass('report-text').text("it's pretty nice outside. you should go enjoy yourself.");
-                        //     $reportText3.appendTo($card3).css({ 'font-size': '4rem', 'line-height': '4rem' })
-                        // } else if ((city1Temp || city2Temp) < 60) {
-                        //     let $reportText3 = $('<h2>').addClass('report-text').text("it's kinda cold out there. take a jacket or coat!");
-                        //     $reportText3.appendTo($card3).css({ 'font-size': '4rem', 'line-height': '4rem' })
-                        // } else {
-                        //     let $reportText3 = $('<h2>').addClass('report-text').text("i'll let you decide what to do!");
-                        //     $reportText3.appendTo($card3).css({ 'font-size': '4rem', 'line-height': '4rem' })
-                        // }
-
-                        $arrowBackLabel.text('back to #overview')
+                        $arrowBackLabel.text('back')
                         $arrowNextLabel.text('next')
 
                     }, () => {

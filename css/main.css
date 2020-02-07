@@ -9,18 +9,23 @@
     --creamer: #b6b6b6;
     --gold: #daa000;
     --bluegrey: #1D2D41;
+
+    --deepocean: #071521;
+    --coralink: #39444d;
+    --mintbeach: #49A983;
+    --silica: rgba(255, 255, 255, 0.54);
 }
 
 /* =================================== BODY PARTS */
 /* =================================== BODY PARTS */
 
 body {
-    background-color: var(--dark);
+    background-color: var(--deepocean);
     /* height: 98vh; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: baseline;
+    align-items: center;
     color: black;
     overflow-x: hidden;
 }
@@ -36,9 +41,11 @@ body {
 }
 
 .divider {
-    width: 30%;
-    height: 1px;
-    background-color: #191919;
+    width: 200;
+    height: 2px;
+    margin: 0 auto;
+    background-color: var(--white);
+    /* opacity: .70; */
 }
 
 /* =================================== TEXT */
@@ -57,20 +64,20 @@ h1, h2, h6 {
 }
 
 h1 {
-    color: var(--gold);
-    font-size: 2.2rem;
+    color: var(--mintbeach);
+    font-size: 2.7rem;
     letter-spacing: -0.02rem;
-    line-height: 0;
+    /* line-height: 0; */
 }
 
 
 
 h6 {
-    color: var(--creamer);
+    color: var(--silica);
     font-size: 0.65rem;
     font-weight: 500;
     margin: 0;
-    margin-bottom: 20px;
+    /* margin-bottom: 5px; */
 }
 
 
@@ -85,7 +92,6 @@ h6 {
 }
 
 #header {
-    background-color: var(--dark);
     padding: 30px 0 50px 0;
 }
 
@@ -94,8 +100,9 @@ form#locations {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 40px;
     width: 100%;
+    /* padding: 0px 0; */
 }
 
 
@@ -123,17 +130,13 @@ form#locations {
 
 
 main {
-    /* height: auto; */
-    /* padding: 50px 0; */
-    background-color: var(--dark);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
-    width: 100%;
-    color: white;
-    
+    width: 90%;
+    /* color: white; */
 }
 
 .atlanta {
@@ -149,22 +152,29 @@ main {
 
 
 input {
-    background-color: #ffffff00;
-    border: 3px solid var(--creamer);
-    color: var(--white);
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 0.9rem;
+    
     font-weight: 600;
-    height: 30px;
+    height: 25px;
     margin-bottom: 10px;
     outline: 0;
     padding: 5px 10px;
-    width: 85%;
+
+
+    background-color: var(--coralink);
+    border: none;
+    border-radius: 7px;
+    color: var(--silica);
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    height: 35px;
+    text-align: center;
+    width: 80%;
 }
 
 ::placeholder {
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 500;
 }
 
@@ -175,26 +185,24 @@ input:focus:-moz-placeholder { color: transparent; }
 button {
     align-items: center;
     background-color: #ffffff00;
-    border: 0;
-    border-bottom: 3px solid var(--gold);
+    border: 2px solid var(--mintbeach);
+    border-radius: 20px;
     color: var(--white);
     cursor: pointer;
     display: flex;
     flex-direction: row;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    height: auto;
+    font-size: 0.8rem;
+    font-weight: 500;
+    height: 30px;
     justify-content: space-evenly;
     margin: 5px auto;
     outline: 0;
-    padding: 5px;
-    width: auto;
+    width: 85px;
 }
 
 button:hover {
-    background-color: var(--gold);
-    color: #000000;
+    background-color: var(--mintbeach);
 }
 
 /* ============================================= //
@@ -206,7 +214,7 @@ button:hover {
 
 .nav-arrow p {
     font-family: "Helvetica Neue", sans-serif;
-    font-size: 1.75rem;
+    font-size: 1.25rem;
 }
 
 p {
@@ -222,70 +230,76 @@ p {
     justify-content: center;
     align-items: center;
     margin: 10px 0;
+    padding: 0;
 }
 
 .arrow {
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
 }
-/* 
-* {
+
+/* * {
     border: 1px solid springgreen;
+} */
+
+
+
+
+/* =================================== FORECASTS */
+/* =================================== FORECASTS */
+
+#cards div:first-of-type {
+    display: flex;
 }
- */
 
 
 
-/* =================================== FORECASTS */
-/* =================================== FORECASTS */
+#cards div:first-of-type {  
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto;
+    width: 100%;
+}
 
-#forecast-cards div {
+#cards div {
     display: none;
 }
 
-#forecast-cards div:first-of-type {
-    display: inline-block;
-}
 
-#forecast-cards {
-    display: flex;
-    flex-direction: row; 
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-
-.card {
-    display: flex;
-    flex-direction: column; 
-    justify-content: flex-start;
-    align-items: center;
-    margin: 20px auto;
-    width: 100%;
-}
 
 .duo {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    flex-direction: row;
+    justify-content: space-evenly;
     align-items: center;
+    width: 95%;
 }
 
 h2 {
     font-size: 1.3rem;
     font-weight: 700;
-    letter-spacing: -0.02rem;
+    letter-spacing: -0.03rem;
     line-height: 100%;
+    text-align: center;
+    width: 100%;
+    color: var(--silica);
 }
 
 h4 {
-    font-size: 1.1rem;
-    font-weight: 500;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.02rem;
+    color: var(--silica);
+    line-height: 90%;
 }
 
 .weather-icon {
-    width: 80%;
+    width: 100px;
     height: auto;
-    margin-bottom: 40px;
     filter: invert(100%);
+}
+
+.highlight {
+    color: var(--mintbeach);
 }
