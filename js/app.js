@@ -14,15 +14,15 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // ============================================================================================ //
     // ============================================================================================ //
 
-    $container.attr('id', 'header').appendTo('body')
-    $content.appendTo('#header')
+    const $header = $('<header>').appendTo('body')
+    const $headerContent = $('<div>').addClass('content').appendTo($header)
 
     // GREETING & TITLE
-    const $greeting = $('<h6>').appendTo($content)
-    const $appTitle = $('<h1>').text('Skipdrizzle').appendTo($content)
+    const $greeting = $('<h6>').appendTo($headerContent)
+    const $appTitle = $('<h1>').text('Skipdrizzle').appendTo($headerContent)
 
     // LOCATIONS FORM
-    const $locations = $('<form>').attr('id', 'locations').appendTo($content)
+    const $locations = $('<form>').appendTo($headerContent)
 
     const $userInput1 = $('<input>').addClass('location-input').attr({
         'type': 'text',
@@ -50,13 +50,14 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // ============================================================================================ //
     // ============================================================================================ //
 
+    const $main = $('<main>').appendTo('body')
+    const $mainContent = $('<div>').addClass('content').appendTo($main)
 
-    const $main = $('<main>').attr('id', 'main').appendTo('body')
-    const $dividerTop = $('<div>').addClass('divider').appendTo($main)
+    const $dividerTop = $('<div>').addClass('divider').appendTo($mainContent)
 
     // STANDARD MESSAGE DISAPPEARS AFTER LOCATION SEARCH
-    const $h2main = $('<h2>').addClass('atlanta').text('Enter two zip codes above to get the current weather for both locations as well as recommendations based on them.')
-    $h2main.appendTo($main)
+    const $h2main = $('<h2>').text('Enter two zip codes above to get the current weather for both locations as well as recommendations based on them.')
+    $h2main.appendTo($mainContent)
 
     // ====================================================================== FORECAST CAROUSEL
     // ====================================================================== FORECAST CAROUSEL
@@ -64,15 +65,14 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // ========== LEFT ARROW
     // ========== LEFT ARROW
 
-    const $arrowBack = $('<div>').addClass('nav').hide().appendTo($main)
+    const $arrowBack = $('<div>').addClass('nav').hide().appendTo($mainContent)
     const $arrowBackIcon = $('<img>').attr('src', 'images/arrow-white.png').addClass('arrow').appendTo($arrowBack)
     const $arrowBackLabel = $('<p>').text(arrowLabelCity1).appendTo($arrowBack)
 
-
     // ========== DATA RENDER
     // ========== DATA RENDER
 
-    const $forecastCards = $('<div>').attr('id', 'cards').hide().appendTo($main)
+    const $forecastCards = $('<div>').attr('id', 'cards').hide().appendTo($mainContent)
 
     const $card1 = $('<div>').addClass('card').appendTo($forecastCards)
     const $card1Title = $('<h2>').appendTo($card1)
@@ -93,7 +93,7 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // ========== RIGHT ARROW
     // ========== RIGHT ARROW
 
-    const $arrowNext = $('<div>').addClass('nav').hide().appendTo($main)
+    const $arrowNext = $('<div>').addClass('nav').hide().appendTo($mainContent)
     const $arrowNextLabel = $('<p>').text(arrowLabelCity2).appendTo($arrowNext)
     const $arrowNextIcon = $('<img>').attr('src', 'images/arrow-white.png').addClass('arrow').css('transform', 'rotate(180deg)').appendTo($arrowNext)
 
@@ -132,7 +132,7 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // ====================================================================== FORECAST CAROUSEL
 
 
-    // const $dividerBottom = $('<div>').addClass('divider').appendTo($main)
+    // const $dividerBottom = $('<div>').addClass('divider').appendTo($mainContent)
 
 
     // ============================================================================================ //
