@@ -8,11 +8,11 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     let arrowLabelCity1;
     let arrowLabelCity2;
 
-    // ============================================================================================ //
-    // ============================================================================================ //
+    // ===================================== //
+    // ===================================== //
     // HEADER //// GREETING, APP TITLE, LOCATION INPUTS
-    // ============================================================================================ //
-    // ============================================================================================ //
+    // ===================================== //
+    // ===================================== //
 
     const $header = $('<header>').appendTo('body')
     const $headerContent = $('<div>').addClass('content').appendTo($header)
@@ -44,11 +44,11 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     }).text('Let\'s go').appendTo($locations)
 
 
-    // ============================================================================================ //
-    // ============================================================================================ //
+    // ===================================== //
+    // ===================================== //
     // MAIN //// CONTAINS LEFT AND RIGHT ARROWS & FORECAST CAROUSEL
-    // ============================================================================================ //
-    // ============================================================================================ //
+    // ===================================== //
+    // ===================================== //
 
     const $main = $('<main>').appendTo('body')
     const $mainContent = $('<div>').addClass('content').appendTo($main)
@@ -66,7 +66,7 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // ========== LEFT ARROW
 
     const $arrowBack = $('<div>').addClass('nav').hide().appendTo($mainContent)
-    const $arrowBackIcon = $('<img>').attr('src', 'images/arrow-white.png').addClass('arrow').appendTo($arrowBack)
+    const $arrowBackIcon = $('<img>').attr('src', 'images/arrow-white.png').addClass('nav-arrow').appendTo($arrowBack)
     const $arrowBackLabel = $('<p>').text(arrowLabelCity1).appendTo($arrowBack)
 
     // ========== DATA RENDER
@@ -74,20 +74,20 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
 
     const $forecastCards = $('<div>').attr('id', 'cards').hide().appendTo($mainContent)
 
-    const $card1 = $('<div>').addClass('card').appendTo($forecastCards)
+    const $card1 = $('<div>').appendTo($forecastCards)
     const $card1Title = $('<h2>').appendTo($card1)
     const $card1Weather = $('<div>').addClass('duo').appendTo($card1)
     const $card1Message = $('<h4>').appendTo($card1Weather)
 
-    const $card2 = $('<div>').addClass('card').appendTo($forecastCards)
+    const $card2 = $('<div>').appendTo($forecastCards)
     const $card2Title = $('<h2>').appendTo($card2)
     const $card2Weather = $('<div>').addClass('duo').appendTo($card2)
     const $card2Message = $('<h4>').appendTo($card2Weather)
 
-    const $card3 = $('<div>').addClass('card').appendTo($forecastCards)
+    const $card3 = $('<div>').appendTo($forecastCards)
     const $card3Title = $('<h2>').text('Summary').appendTo($card3)
     const $card3Weather = $('<div>').addClass('duo').appendTo($card3)
-    const $card3Message = $('<h4>').appendTo($card3Weather)
+    const $card3Message = $('<p>').attr('id', 'summary').appendTo($card3Weather)
 
 
     // ========== RIGHT ARROW
@@ -95,7 +95,7 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
 
     const $arrowNext = $('<div>').addClass('nav').hide().appendTo($mainContent)
     const $arrowNextLabel = $('<p>').text(arrowLabelCity2).appendTo($arrowNext)
-    const $arrowNextIcon = $('<img>').attr('src', 'images/arrow-white.png').addClass('arrow').css('transform', 'rotate(180deg)').appendTo($arrowNext)
+    const $arrowNextIcon = $('<img>').attr('src', 'images/arrow-white.png').addClass('nav-arrow').css('transform', 'rotate(180deg)').appendTo($arrowNext)
 
     // ========== DATA INCLUSION
     // ========== DATA INCLUSION
@@ -128,28 +128,15 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
 
     console.log(cardsNumber)
 
-    // ====================================================================== FORECAST CAROUSEL
-    // ====================================================================== FORECAST CAROUSEL
+    // FOOTER ====================================== FOOTER //
+    // FOOTER ====================================== FOOTER //
+
+    const $footer = $('<footer>').appendTo('body')
+    const $footerText = $('<p>').html('<a href="https://wins.dev" target="_blank">winslow</a> wants you to keep calm and clear or mostly sunny.</span>').appendTo($footer)
 
 
-    // const $dividerBottom = $('<div>').addClass('divider').appendTo($mainContent)
-
-
-    // ============================================================================================ //
-    // ============================================================================================ //
-    // FOOTER
-    // ============================================================================================ //
-    // ============================================================================================ //
-
-    // const $footer = $('<footer>').appendTo('body')
-    // const $footerText = $('<p>').html('<a href="https://wins.dev" target="_blank">winslow</a> designed and coded this app with determination and a mac. <span class="breaker">keep calm and clear or mostly sunny.</span>').appendTo($footer)
-
-
-    // ============================================================================================ //
-    // ============================================================================================ //
-    // AJAX //////////////////// STRONGER THAN GREECE / GREASE. THE MORE YOU REALIZE.
-    // ============================================================================================ //
-    // ============================================================================================ //
+    // AJAX ====================================== AJAX //
+    // AJAX ====================================== AJAX //
 
     // ========== WEATHER ICONS
     // ========== WEATHER ICONS
@@ -297,10 +284,11 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // MIDDLE LINES : CONDITIONS
     const continueSummary = (city1, cond1, city2, cond2) => {
         let match = determineIfMatch(cond1, cond2);
+        let matchCities = determineIfMatch(city1, city2)
 
         if ((cond1 || cond2) === "raining") {
             conditionsCode = "rainy"
-            return "take an umbrella since it's raining in " + (match === true ? `both ${city1} and ${city2}.` : (cond1 === "raining" ? `${city1}.` : `${city2}.`))
+            return "take an umbrella since it's raining in " + (match === true ? `both ${matchCities === true ? `areas of ${city1}.` : `${city1} and ${city2}.`}` : (cond1 === "raining" ? `${city1}.` : `${city2}.`))
         } else if ((cond1 || cond2) === "clear") {
             conditionsCode = "clear"
             return "it's clear skies in " + (match === true ? ` both ${city1} and ${city2}.` : (cond1 === "clear" ? `${city1}, but ${cond2} in ${city2}.` : `${city2}, but ${cond1} in ${city1}.`))
@@ -364,11 +352,8 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
         $arrowBack.show()
         $forecastCards.show();
 
-        // let locationInput1 = $('input[name="input-1"]').val();
-        // let locationInput2 = $('input[name="input-2"]').val();
-
-        let locationInput1 = 'Truth or Consequences'
-        let locationInput2 = 'Hawaiian Paradise Park'
+        let locationInput1 = $('input[name="input-1"]').val();
+        let locationInput2 = $('input[name="input-2"]').val();
 
         // ========== AJAX CALL
         // ========== AJAX CALL
@@ -406,7 +391,7 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
                         let city2Conditions = returnStatus(data.weather[0].main);
 
                         $card2Title.text(city2)
-                        $card2Message.html(city2Temp + '° <span class="highlight">&</span><br />' + city2Conditions)
+                        $card2Message.html(city2Temp + '° <span class="highlight">&</span><br />' + city2Conditions).css('width', '45%')
                         findWeatherIcon(data.weather[0].main).prependTo($card2Weather)
 
                         $card3Message.text(generateSummary(city1, city1Conditions, city1Temp, city2, city2Conditions, city2Temp))
@@ -421,8 +406,8 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
             })
     }) // END OF #SUBMIT-LOCATION BUTTON CLICK; DO NOT ERASE
 
-    // ============================================================================================ //
-    // ============================================================================================ //
+    // ===================================== //
+    // ===================================== //
 }) // DOCUMENT.READY /// DO NOT TOUCH ///
-// ============================================================================================ //
-// ============================================================================================ //
+// ===================================== //
+// ===================================== //
