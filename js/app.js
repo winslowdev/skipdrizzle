@@ -327,7 +327,7 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
     // ========== AJAX CALL FOR DATA RENDERING
 
     $.ajax({
-        url: "https://api.openweathermap.org/data/2.5/weather?zip=" + 30363 + ",us&units=imperial&appid=052b6765bf73ea440e9f314c5808f645"
+        url: "https://api.openweathermap.org/data/2.5/weather?zip=" + 30363 + ",us&units=imperial&appid=90056d2217c139752971ffc102e608c8"
     }).then(
         (data) => {
 
@@ -359,7 +359,7 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
         // ========== AJAX CALL
 
         $.ajax({
-            url: "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput1 + ",us&units=imperial&appid=052b6765bf73ea440e9f314c5808f645"
+            url: "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput1 + ",us&units=imperial&appid=90056d2217c139752971ffc102e608c8"
         }).then(
             (data) => {
 
@@ -379,7 +379,7 @@ $(() => { /// DOCUMENT.READY /// DO NOT TOUCH /// DOCUMENT.READY /// DO NOT TOUC
                 // ========== AJAX CALL
 
                 $.ajax({
-                    url: "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput2 + ",us&units=imperial&appid=052b6765bf73ea440e9f314c5808f645"
+                    url: "https://api.openweathermap.org/data/2.5/weather?q=" + locationInput2 + ",us&units=imperial&appid=90056d2217c139752971ffc102e608c8"
                 }).then(
                     (data) => {
 
